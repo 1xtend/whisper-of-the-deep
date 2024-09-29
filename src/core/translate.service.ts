@@ -1,5 +1,6 @@
 import { Language } from '../models/enums/language.enum.ts';
 import { LanguageObserver } from '../models/interfaces/observers.interface.ts';
+import { LocalStorage } from '../models/enums/local-storage.enum.ts';
 
 type Translations = {
   [language in Language]: {
@@ -26,10 +27,9 @@ export class TranslateService {
       await this.loadTranslations(language);
     }
 
-    if (this.currentLanguage !== language) {
-      this.currentLanguage = language;
-      this.notifyObservers();
-    }
+    this.currentLanguage = language;
+    localStorage.setItem(LocalStorage.Language, language);
+    this.notifyObservers();
   }
 
   private notifyObservers() {

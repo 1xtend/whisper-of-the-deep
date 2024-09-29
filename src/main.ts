@@ -4,6 +4,7 @@ import { TranslateService } from './core/translate.service.ts';
 import { Language } from './models/enums/language.enum.ts';
 import { LanguageObserver } from './models/interfaces/observers.interface.ts';
 import { LanguageSwitchComponent } from './components/language-switch/language-switch.component.ts';
+import { LocalStorage } from './models/enums/local-storage.enum.ts';
 
 class App extends Component implements LanguageObserver {
   private readonly translateService: TranslateService;
@@ -20,7 +21,8 @@ class App extends Component implements LanguageObserver {
   }
 
   private async initialize(): Promise<void> {
-    await this.translateService.setLanguage(Language.EN);
+    const savedLanguage = localStorage.getItem(LocalStorage.Language) as Language | null;
+    await this.translateService.setLanguage(savedLanguage || Language.EN);
     this.render();
   }
 
