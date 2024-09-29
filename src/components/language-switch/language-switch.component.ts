@@ -28,9 +28,7 @@ export class LanguageSwitchComponent extends Component {
 
   protected template(): string {
     return `
-      <button type="button" data-language-switch>
-        ${ this.translateService.translate('switch-language') }
-      </button>
+      <button type="button" data-language-switch data-translate="switch-language"></button>
     `;
   }
 }
