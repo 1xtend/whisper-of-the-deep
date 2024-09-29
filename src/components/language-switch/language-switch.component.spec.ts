@@ -1,8 +1,6 @@
 import { LanguageSwitchComponent } from './language-switch.component.ts';
 import { TranslateService } from '../../core/translate.service.ts';
 
-// jest.mock('../../core/translate.service.ts');
-
 describe('LanguageSwitchComponent', () => {
   let component: LanguageSwitchComponent;
   const containerId = 'test-container';
@@ -18,8 +16,13 @@ describe('LanguageSwitchComponent', () => {
   });
 
   test('should render template', () => {
+    const updateViewSpy = jest.spyOn(<any>component, 'updateView');
+    const bindEventsSpy = jest.spyOn(<any>component, 'bindEvents');
+
     component.render();
     const element = document.getElementById(containerId);
+    expect(updateViewSpy).toHaveBeenCalled();
+    expect(bindEventsSpy).toHaveBeenCalled();
     expect(element).toBeTruthy();
     expect(element?.innerHTML).toBe(`
       <button type="button" data-language-switch="">
