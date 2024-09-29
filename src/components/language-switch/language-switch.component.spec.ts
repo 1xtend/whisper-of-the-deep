@@ -24,10 +24,6 @@ describe('LanguageSwitchComponent', () => {
     expect(updateViewSpy).toHaveBeenCalled();
     expect(bindEventsSpy).toHaveBeenCalled();
     expect(element).toBeTruthy();
-    expect(element?.innerHTML).toBe(`
-      <button type="button" data-language-switch="">
-        switch-language
-      </button>
-    `);
+    expect(element?.innerHTML.trim()).toBe(`<button type="button" data-language-switch="" data-translate="switch-language"></button>`);
   });
 });

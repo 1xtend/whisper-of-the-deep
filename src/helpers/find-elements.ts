@@ -6,3 +6,8 @@ export function findElement<T extends HTMLElement>(selector: string): T | null {
 export function findElementById<T extends HTMLElement>(id: string): T | null {
   return document.getElementById(id) as T | null;
 }
+
+export function findElements<T extends HTMLElement>(selector: string): T[] {
+  const nodeList: NodeListOf<T> = document.querySelectorAll(`[data-${ selector }]`);
+  return nodeList.length > 0 ? Array.from(nodeList) : [];
+}

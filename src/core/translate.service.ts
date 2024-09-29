@@ -17,19 +17,25 @@ export class TranslateService {
     return this.currentLanguage;
   }
 
+  getTranslations(): Translations {
+    return this.translations;
+  }
+
   async loadTranslations(language: Language): Promise<void> {
     const response = await fetch(`src/assets/languages/${ language }.json`);
     this.translations[language] = await response.json();
   }
 
-  async setLanguage(language: Language): Promise<void> {
+  async setLanguage(language: Language, notify: boolean = true): Promise<void> {
     if (!this.translations[language]) {
       await this.loadTranslations(language);
     }
 
     this.currentLanguage = language;
     localStorage.setItem(LocalStorage.Language, language);
-    this.notifyObservers();
+    if (notify) {
+      this.notifyObservers();
+    }
   }
 
   private notifyObservers() {
