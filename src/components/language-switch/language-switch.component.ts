@@ -16,9 +16,7 @@ export class LanguageSwitchComponent extends Component {
   protected bindEvents(): void {
     const buttonEl = findElement('language-switch');
     if (buttonEl) {
-      buttonEl.addEventListener('click', async () => {
-        await this.switchLanguage();
-      });
+      buttonEl.addEventListener('click', this.switchLanguage.bind(this));
     }
   }
 

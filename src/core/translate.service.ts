@@ -26,8 +26,10 @@ export class TranslateService {
       await this.loadTranslations(language);
     }
 
-    this.currentLanguage = language;
-    this.notifyObservers();
+    if (this.currentLanguage !== language) {
+      this.currentLanguage = language;
+      this.notifyObservers();
+    }
   }
 
   private notifyObservers() {

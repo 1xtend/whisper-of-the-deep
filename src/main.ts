@@ -15,10 +15,13 @@ class App extends Component implements LanguageObserver {
   constructor() {
     super('app');
     this.translateService = new TranslateService();
-    this.translateService.setLanguage(Language.EN).then(() => {
-      this.render();
-    });
+    this.initialize();
     this.translateService.subscribe(this);
+  }
+
+  private async initialize(): Promise<void> {
+    await this.translateService.setLanguage(Language.EN);
+    this.render();
   }
 
   updateLanguage() {
