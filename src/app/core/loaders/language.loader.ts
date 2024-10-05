@@ -6,7 +6,13 @@ interface Translations {
 
 export class LanguageLoader {
   async load(language: Language): Promise<Translations> {
-    const response = await fetch(`src/assets/i18n/${ language }.json`);
-    return await response.json();
+    const path = `src/assets/i18n/${ language }.json`;
+
+    try {
+      const response = await fetch(path);
+      return await response.json();
+    } catch {
+      throw new Error(`Failed to load language from "${ path }"`);
+    }
   }
 }
