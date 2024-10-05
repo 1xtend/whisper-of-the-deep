@@ -40,8 +40,18 @@ class App extends Component {
 
     elements.forEach((el) => {
       const key = el.getAttribute('data-translate');
-      el.textContent = key && translations[currentLanguage][key] ? translations[currentLanguage][key] : key;
+      if (!key) return;
+      const translatedText = this.translate(translations[currentLanguage], key);
+      el.textContent = translatedText || key;
     });
+  }
+
+  private translate(translations: { [key: string]: any }, key: string): string | undefined {
+    if (key.includes('.')) {
+      return key.split('.').reduce<any>((acc, part) => acc && acc[part], translations);
+    } else {
+      return translations[key];
+    }
   }
 
   protected render() {
@@ -58,6 +68,7 @@ class App extends Component {
   protected template(): string {
     return `
       <h1 data-translate="app-works"></h1>
+      <p data-translate="app.test"></p>
       <div id="language-switcher"></div>
     `;
   }

@@ -1,4 +1,7 @@
 {
   "app-works": "Додаток працює!",
-  "switch-language": "Змінити мову"
+  "switch-language": "Змінити мову",
+  "app": {
+    "test": "Тест"
+  }
 }
