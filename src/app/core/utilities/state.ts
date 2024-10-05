@@ -1,4 +1,5 @@
-type Subscriber<T> = (value: T) => void
+import { Subscriber } from '../../shared/models/types/subscriber.type.ts';
+import { ReadonlyState } from '../../shared/models/interfaces/readonly-state.interface.ts';
 
 export class State<T> {
   private value: T;
@@ -21,6 +22,13 @@ export class State<T> {
 
   subscribe(callback: Subscriber<T>): void {
     this.subscribers.push(callback);
+  }
+
+  asReadonly(): ReadonlyState<T> {
+    return {
+      get: this.get.bind(this),
+      subscribe: this.subscribe.bind(this)
+    };
   }
 
   private notify(): void {

@@ -3,13 +3,14 @@ import { State } from '../utilities/state.ts';
 import { LocalStorage } from '../../shared/models/enums/local-storage.enum.ts';
 import { Translations } from '../../shared/models/types/translations.type.ts';
 import { LanguageLoader } from '../loaders/language.loader.ts';
+import { ReadonlyState } from '../../shared/models/interfaces/readonly-state.interface.ts';
 
 export class TranslateService {
   private readonly languageState = new State<Language>(Language.EN);
   private _translations: Translations = {} as Translations;
 
-  get language(): typeof this.languageState {
-    return this.languageState;
+  get language(): ReadonlyState<Language> {
+    return this.languageState.asReadonly();
   }
 
   get currentLanguage(): Language {
@@ -27,8 +28,6 @@ export class TranslateService {
     if (!this.translations[language]) {
       this._translations[language] = await this.languageLoader.load(language);
     }
-
-    if (language === this.languageState.get()) return;
 
     this.languageState.set(language);
     localStorage.setItem(LocalStorage.Language, language);
