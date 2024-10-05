@@ -1,5 +1,5 @@
 import { LanguageSwitchComponent } from './language-switch.component.ts';
-import { TranslateService } from '../../core/translate.service.ts';
+import { TranslateService } from '../../../core/services/translate.service.ts';
 
 describe('LanguageSwitchComponent', () => {
   let component: LanguageSwitchComponent;

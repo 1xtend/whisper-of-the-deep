@@ -1,4 +1,4 @@
-import { findElementById } from '../helpers/find-elements.ts';
+import { findElementById } from '../../shared/helpers/find-elements.ts';
 
 export abstract class Component {
   protected constructor(private containerId: string) {
