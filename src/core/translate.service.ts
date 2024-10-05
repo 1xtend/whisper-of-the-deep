@@ -27,12 +27,15 @@ export class TranslateService {
   }
 
   async setLanguage(language: Language, notify: boolean = true): Promise<void> {
+    if (this.currentLanguage === language) return;
+
     if (!this.translations[language]) {
       await this.loadTranslations(language);
     }
 
     this.currentLanguage = language;
     localStorage.setItem(LocalStorage.Language, language);
+
     if (notify) {
       this.notifyObservers();
     }
